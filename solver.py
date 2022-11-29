@@ -20,11 +20,11 @@ from word import Word
 
 
 class Solver:
-    def __init__(self, word_lst):
-        self.word_lst = []
-        self.question = ""
+    def __init__(self, word_lst, question, answer):
+        self.word_lst = word_lst
+        self.question = question
+        self.answer = answer
         self.question_lst = []
-        self.answer = ""
         self.answer_lst = []
 
     def split(self, word):
@@ -51,6 +51,10 @@ class Solver:
     def split_input(self):
         for i in self.answer:
             self.answer_lst.append(i)
+
+    def word(self):
+        for i in self.word_lst:
+            lst_of_object = [Word(i)]
 
     def eliminate_g(self, lst, ans):
         num = ['1', '2', '3', '4', '5', '-']
@@ -116,6 +120,15 @@ class Solver:
                     elif lst[i][index[j] - 1:index[j]] == letter_correct[j]:
                         lst[i] = 'x'
 
+    def display_word(self, ans, g_index, y_index):
+        for i in range(1, 6):
+            if i in g_index:
+                print(f"'{(ans[i - 1:i]).upper()}'", end=' ')
+            elif i in y_index:
+                print((ans[i - 1:i]).upper(), end=' ')
+            else:
+                print(ans[i - 1:i], end=' ')
+        print()
 
 # x = Solver(Database().word_list)
 #
