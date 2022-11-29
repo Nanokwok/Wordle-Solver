@@ -20,10 +20,10 @@ from word import Word
 
 
 class Solver:
-    def __init__(self, word_lst, question, answer):
+    def __init__(self, word_lst):
         self.word_lst = word_lst
-        self.question = question
-        self.answer = answer
+        self.question = ''
+        self.answer = ''
         self.question_lst = []
         self.answer_lst = []
 
@@ -86,6 +86,7 @@ class Solver:
                         lst[i] = 'x'
                     elif lst[i][index[j] - 1:index[j]] != letter_correct[j]:
                         lst[i] = 'x'
+        return index
 
     def eliminate_y(self, lst, ans):
         num = ['1', '2', '3', '4', '5', '-']
@@ -119,6 +120,7 @@ class Solver:
                         lst[i] = 'x'
                     elif lst[i][index[j] - 1:index[j]] == letter_correct[j]:
                         lst[i] = 'x'
+        return index
 
     def display_word(self, ans, g_index, y_index):
         for i in range(1, 6):

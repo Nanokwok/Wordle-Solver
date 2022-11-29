@@ -106,3 +106,6 @@ for i in lst:
     lst_of_object.append(Word(i))
 
 print(lst_of_object)
+
+for i in lst_of_object:
+    print(i)

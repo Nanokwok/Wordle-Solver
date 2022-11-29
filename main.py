@@ -20,22 +20,27 @@ def run(filename):
             word_lst = []
             for line in f:
                 word_lst.append(line.strip())
-        while True:
+
             # if rounds == 1:
-            ans = []
-            print('good starting words to use for Wordle…')
-            print('dealt [1]')
-            print('roate [2]')
-            print('store [3]')
-            print('ocean [4]')
-            print('((Your own guess)) [5]')
-            yes_or_no = input('Have you won? (y/n) : ')
-            if yes_or_no == 'y':
-                print('Congratulations!')
-                break
-            elif yes_or_no == 'n':
-                print('What you selected : ')
+        ans = ['dealt', 'roate', 'store', 'ocean']
+        print('good starting words to use for Wordle…')
+        print('dealt [1]')
+        print('roate [2]')
+        print('store [3]')
+        print('ocean [4]')
+        print('((Your own guess)) [5]')
+        yes_or_no = input('Have you won? (y/n) : ')
+        if yes_or_no == 'y':
+            print('Congratulations!')
+        elif yes_or_no == 'n':
+            while True:
+                select = input('What you selected : ')
+                print(f'You selected "{ans[int(select) - 1]}"')
                 print('Suggested words…')
+                # Solver.eliminate_g(word_lst, ans[int(select) - 1])
+                # Solver.eliminate_y(word_lst, ans[int(select) - 1])
+                # Solver.display_word(ans[int(select) - 1], g_index, y_index)
+
 
 
 
