@@ -25,4 +25,4 @@ class Word:
         return self.word
 
 
-print(Database.read_file('sgb-words.txt'))
+# print(Database.read_file('sgb-words.txt'))

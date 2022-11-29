@@ -27,12 +27,12 @@ class Database:
     #         f.write(self.word + '')
 
     def __init__(self):
-        self.word = Word()
+        self.word = []
 
     def read_file(self, file_name):
         with open(file_name, 'r') as f:
             for line in f:
-                self.word = line.strip()
+                self.word.append(line.strip())
         return self.word
 
     def add_word(self, file_name):
@@ -41,9 +41,3 @@ class Database:
 
     def __repr__(self):
         return self.word
-
-
-
-
-
-
