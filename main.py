@@ -4,6 +4,7 @@ from solver import Solver
 import random
 
 
+
 def run(filename):
     print('Hello ! welcome to WORDLE SOLVER')
     print('================================')
@@ -20,6 +21,7 @@ def run(filename):
             word_lst = []
             for line in f:
                 word_lst.append(line.strip())
+        SOLVER = Solver(word_lst)
 
             # if rounds == 1:
         ans = ['dealt', 'roate', 'store', 'ocean']
@@ -36,10 +38,34 @@ def run(filename):
             while True:
                 select = input('What you selected : ')
                 print(f'You selected "{ans[int(select) - 1]}"')
-                print('Suggested words…')
                 # Solver.eliminate_g(word_lst, ans[int(select) - 1])
                 # Solver.eliminate_y(word_lst, ans[int(select) - 1])
                 # Solver.display_word(ans[int(select) - 1], g_index, y_index)
+                g_index = SOLVER.eliminate_g(word_lst, ans[int(select) - 1])
+                y_index = SOLVER.eliminate_y(word_lst, ans[int(select) - 1])
+                SOLVER.display_word(ans[int(select) - 1], g_index, y_index)
+                print('================================')
+                print('Suggested words…')
+                sug = []
+                for i in word_lst:
+                    if i != 'x':
+                        sug.append(i)
+
+                rand = []
+                if len(sug) > 4:
+                    for i in range(4):
+                        rand.append(random.choice(sug))
+                else:
+                    for i in range(len(sug)):
+                        rand.append(random.choice(sug))
+
+                for i in range(len(rand)):
+                    print(f'{rand[i]} [{i + 1}]')
+
+                print(f'((Your own guess)) [{len(rand) + 1}]')
+
+
+
 
 
 

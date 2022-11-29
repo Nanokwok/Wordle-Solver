@@ -21,7 +21,7 @@ from word import Word
 
 class Solver:
     def __init__(self, word_lst):
-        self.word_lst = word_lst
+        self.word_lst = []
         self.question = ''
         self.answer = ''
         self.question_lst = []
