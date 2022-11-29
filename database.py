@@ -26,8 +26,8 @@ class Database:
     #     with open(file_name, 'a') as f:
     #         f.write(self.word + '')
 
-    def __init__(self):
-        self.word = []
+    def __init__(self, word=''):
+        self.word = word
 
     def read_file(self, file_name):
         with open(file_name, 'r') as f:

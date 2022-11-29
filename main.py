@@ -16,6 +16,7 @@ def run(filename):
     print('================================')
     if menu_choice == '1':
         rounds = 1
+        WORD_LIST = Database(filename)
         # word_lst = Database.read_file(filename)
         with open(filename, 'r') as f:
             word_lst = []
@@ -24,6 +25,7 @@ def run(filename):
         SOLVER = Solver(word_lst)
 
             # if rounds == 1:
+        rounds = 1
         ans = ['dealt', 'roate', 'store', 'ocean']
         print('good starting words to use for Wordle…')
         print('dealt [1]')
@@ -36,6 +38,10 @@ def run(filename):
             print('Congratulations!')
         elif yes_or_no == 'n':
             while True:
+                if rounds == 1:
+                    pass
+                elif rounds > 1:
+                    yes_or_no = input('Have you won? (y/n) : ')
                 select = input('What you selected : ')
                 print(f'You selected "{ans[int(select) - 1]}"')
                 # Solver.eliminate_g(word_lst, ans[int(select) - 1])
@@ -63,19 +69,6 @@ def run(filename):
                     print(f'{rand[i]} [{i + 1}]')
 
                 print(f'((Your own guess)) [{len(rand) + 1}]')
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     elif menu_choice == '2':
