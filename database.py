@@ -31,9 +31,10 @@ class Database:
 
     def read_file(self, file_name):
         with open(file_name, 'r') as f:
+            lst = []
             for line in f:
-                self.word.append(line.strip())
-        return self.word
+                lst.append(line.strip())
+        return lst
 
     def add_word(self, file_name):
         with open(file_name, 'a') as f:
