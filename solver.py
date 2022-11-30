@@ -20,12 +20,14 @@ from word import Word
 
 
 class Solver:
-    def __init__(self, word_lst):
+    def __init__(self, word):
         self.word_lst = []
         self.question = ''
         self.answer = ''
         self.question_lst = []
         self.answer_lst = []
+        self.word = word
+
 
     def split(self, word):
         for i in word:
@@ -54,7 +56,7 @@ class Solver:
 
     def word(self):
         for i in self.word_lst:
-            lst_of_object = [Word(i)]
+            self.word_lst.append(Word(i))
 
     def eliminate_g(self, lst, ans):
         num = ['1', '2', '3', '4', '5', '-']

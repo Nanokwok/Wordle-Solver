@@ -74,6 +74,7 @@ def run(filename):
         SOLVER = Solver(DB.read_file(filename))
         word_lst = DB.read_file(filename)
         ans = ['dealt', 'roate', 'store', 'ocean']
+        lst = []
         while True:
             if rounds == 1:
                 print('good starting words to use for Wordle…')
@@ -88,8 +89,12 @@ def run(filename):
                     break
                 elif yes_or_no == 'n':
                     select = input('What you selected : ')
+                    while select not in ['1', '2', '3', '4', '5']:
+                        print('Invalid input. Please try again.')
+                        select = input('What you selected : ')
                     if select != 5:
                         print(f'You selected "{ans[int(select) - 1]}"')
+                        print('================================')
                         # Solver.eliminate_g(word_lst, ans[int(select) - 1])
                         # Solver.eliminate_y(word_lst, ans[int(select) - 1])
                         # Solver.display_word(ans[int(select) - 1], g_index, y_index)
@@ -99,12 +104,32 @@ def run(filename):
                         print('================================')
                     else:
                         own_word = input('Enter your word : ')
-                        g_index = SOLVER.eliminate_g(word_lst, own_word)
-                        y_index = SOLVER.eliminate_y(word_lst, own_word)
-                        SOLVER.display_word(own_word, g_index, y_index)
-                        print('================================')
+                        if all(SOLVER.check_five() and SOLVER.check_real()):
+                            print(f'You selected "{own_word}"')
+                            g_index = SOLVER.eliminate_g(word_lst, own_word)
+                            y_index = SOLVER.eliminate_y(word_lst, own_word)
+                            SOLVER.display_word(own_word, g_index, y_index)
+                            lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                            print('================================')
+                        else:
+                            while True:
+                                print('Invalid word. Please try again.')
+                                own_word = input('Enter your word : ')
+                                if all(SOLVER.check_five() and SOLVER.check_real()):
+                                    print(f'You selected "{own_word}"')
+                                    g_index = SOLVER.eliminate_g(word_lst, own_word)
+                                    y_index = SOLVER.eliminate_y(word_lst, own_word)
+                                    SOLVER.display_word(own_word, g_index, y_index)
+                                    lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                                    print('================================')
+                                    break
 
                     rounds += 1
+
+                else:
+                    print('Please enter y or n')
+                    print('================================')
+
 
             else:
                 print('Suggested words…')
@@ -125,28 +150,50 @@ def run(filename):
                     print(f'{rand[i]} [{i + 1}]')
 
                 print(f'((Your own guess)) [{len(rand) + 1}]')
+
+                ans = rand
+
                 yes_or_no = input('Have you won? (y/n) : ')
                 if yes_or_no == 'y':
                     print('Congratulations!')
                     break
                 elif yes_or_no == 'n':
                     select = input('What you selected : ')
+                    while select not in ['1', '2', '3', '4', '5']:
+                        print('Invalid input. Please try again.')
+                        select = input('What you selected : ')
                     if select != len(rand) + 1:
                         print(f'You selected "{rand[int(select) - 1]}"')
+                        print('================================')
                         g_index = SOLVER.eliminate_g(word_lst, rand[int(select) - 1])
                         y_index = SOLVER.eliminate_y(word_lst, rand[int(select) - 1])
                         SOLVER.display_word(rand[int(select) - 1], g_index, y_index)
+                        lst.append(SOLVER.display_word(rand[int(select) - 1], g_index, y_index))
                         print('================================')
                     else:
                         own_word = input('Enter your word : ')
-                        g_index = SOLVER.eliminate_g(word_lst, own_word)
-                        y_index = SOLVER.eliminate_y(word_lst, own_word)
-                        SOLVER.display_word(own_word, g_index, y_index)
-                        print('================================')
-
-
-
-
+                        if all(SOLVER.check_five() and SOLVER.check_real()):
+                            print(f'You selected "{own_word}"')
+                            g_index = SOLVER.eliminate_g(word_lst, own_word)
+                            y_index = SOLVER.eliminate_y(word_lst, own_word)
+                            SOLVER.display_word(own_word, g_index, y_index)
+                            lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                            print('================================')
+                        else:
+                            while True:
+                                print('Invalid word. Please try again.')
+                                own_word = input('Enter your word : ')
+                                if all(SOLVER.check_five() and SOLVER.check_real()):
+                                    print(f'You selected "{own_word}"')
+                                    g_index = SOLVER.eliminate_g(word_lst, own_word)
+                                    y_index = SOLVER.eliminate_y(word_lst, own_word)
+                                    SOLVER.display_word(own_word, g_index, y_index)
+                                    lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                                    print('================================')
+                                    break
+                else:
+                    print('Please enter y or n')
+                    print('================================')
 
     elif menu_choice == '2':
         # display all word in a file
