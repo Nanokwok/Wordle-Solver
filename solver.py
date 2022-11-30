@@ -28,24 +28,23 @@ class Solver:
         self.answer_lst = []
         self.word = word
 
-
-    def split(self, word):
-        for i in word:
-            self.question_lst.append(i)
+    # def split(self, word):
+    #     for i in word:
+    #         self.question_lst.append(i)
 
     def ask_and_lower(self):
         self.answer = input("Enter a word: ").lower()
         for i in self.answer:
             self.answer_lst.append(i)
 
-    def check_real(self):
-        if self.answer in self.word_lst:
+    def check_real(self, word, lst):
+        if word in lst:
             return True
         else:
             return False
 
-    def check_five(self):
-        if len(self.answer) == 5:
+    def check_five(self, word):
+        if len(word) == 5:
             return True
         else:
             return False
@@ -62,6 +61,9 @@ class Solver:
         num = ['1', '2', '3', '4', '5', '-']
         green = input('Input green tile index(es) (if not input -) : ')
         index = [i for i in green]
+        # if len(dump) != 0:
+        #     for i in dump:
+        #         index.append(i)
 
         bool = all(i in num for i in index)
 
@@ -78,15 +80,24 @@ class Solver:
         if green == '-':
             pass
         else:
-            letter_correct = []
+            # if len(dump) != 0:
+            #     for i in dump:
+            #         index.append(i)
+
+            letter_correct_g = []
             for i in index:
-                letter_correct.append(ans[i - 1])
+                letter_correct_g.append(ans[i - 1])
 
             for i in range(len(lst)):
-                for j in range(len(letter_correct)):
-                    if letter_correct[j] not in lst[i]:
+                for j in range(len(letter_correct_g)):
+                    if letter_correct_g[j] not in lst[i]:
+                        # counts = 0
+                        # for k in range(len(lst[i])):
+                        #     if lst[i][k] == letter_correct_g[j]:
+                        #         counts += 1
+                        # if counts == 1:
                         lst[i] = 'x'
-                    elif lst[i][index[j] - 1:index[j]] != letter_correct[j]:
+                    elif lst[i][index[j] - 1:index[j]] != letter_correct_g[j]:
                         lst[i] = 'x'
         return index
 
@@ -110,19 +121,49 @@ class Solver:
         if yellow == '-':
             pass
         else:
-            letter_correct = []
+            # if len(dump) != 0:
+            #     for i in dump:
+            #         index.append(i)
+
+            letter_correct_y = []
             for i in index:
-                letter_correct.append(ans[i - 1])
+                letter_correct_y.append(ans[i - 1])
 
             for i in range(len(lst)):
-                for j in range(len(letter_correct)):
+                for j in range(len(letter_correct_y)):
                     if lst[i] == 'x':
                         pass
-                    elif letter_correct[j] not in lst[i]:
+                    elif letter_correct_y[j] not in lst[i]:
+                        # counts = 0
+                        # for k in range(len(lst[i])):
+                        #     if lst[i][k] == letter_correct_y[j]:
+                        #         counts += 1
+                        # if counts == 1:
                         lst[i] = 'x'
-                    elif lst[i][index[j] - 1:index[j]] == letter_correct[j]:
+                    elif lst[i][index[j] - 1:index[j]] == letter_correct_y[j]:
                         lst[i] = 'x'
         return index
+
+    def eliminate_b(self, lst, ans, g_index, y_index):
+        need = []
+        for i in g_index:
+            need.append(i)
+        for i in y_index:
+            need.append(i)
+
+        not_need = []
+        for i in range(1, 6):
+            if i not in need:
+                not_need.append(i)
+
+        char = []
+        for i in not_need:
+            char.append(ans[i - 1: i])
+
+        for i in range(len(lst)):
+            for j in char:
+                if j in lst[i]:
+                    lst[i] = 'x'
 
     def display_word(self, ans, g_index, y_index):
         for i in range(1, 6):
@@ -133,6 +174,14 @@ class Solver:
             else:
                 print(ans[i - 1:i], end=' ')
         print()
+
+    def update_word_lst(self, lst):
+        word = []
+        for i in lst:
+            if i != 'x':
+                word.append(i)
+        lst = word
+        return lst
 
 # x = Solver(Database().word_list)
 #

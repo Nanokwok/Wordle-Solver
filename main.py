@@ -75,6 +75,8 @@ def run(filename):
         word_lst = DB.read_file(filename)
         ans = ['dealt', 'roate', 'store', 'ocean']
         lst = []
+        # dump_g = []
+        # dump_y = []
         while True:
             if rounds == 1:
                 print('good starting words to use for Wordle…')
@@ -92,7 +94,7 @@ def run(filename):
                     while select not in ['1', '2', '3', '4', '5']:
                         print('Invalid input. Please try again.')
                         select = input('What you selected : ')
-                    if select != 5:
+                    if select != '5':
                         print(f'You selected "{ans[int(select) - 1]}"')
                         print('================================')
                         # Solver.eliminate_g(word_lst, ans[int(select) - 1])
@@ -100,29 +102,28 @@ def run(filename):
                         # Solver.display_word(ans[int(select) - 1], g_index, y_index)
                         g_index = SOLVER.eliminate_g(word_lst, ans[int(select) - 1])
                         y_index = SOLVER.eliminate_y(word_lst, ans[int(select) - 1])
-                        SOLVER.display_word(ans[int(select) - 1], g_index, y_index)
+                        SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                        # SOLVER.display_word(ans[int(select) - 1], g_index, y_index)
+                        lst.append(SOLVER.display_word(ans[int(select) - 1], g_index, y_index))
+                        # print(lst)
+                        # SOLVER.update_word_lst(word_lst)
+                        # dump_g.append(g_index)
+                        # dump_y.append(y_index)
                         print('================================')
+
                     else:
                         own_word = input('Enter your word : ')
-                        if all(SOLVER.check_five() and SOLVER.check_real()):
-                            print(f'You selected "{own_word}"')
-                            g_index = SOLVER.eliminate_g(word_lst, own_word)
-                            y_index = SOLVER.eliminate_y(word_lst, own_word)
-                            SOLVER.display_word(own_word, g_index, y_index)
-                            lst.append(SOLVER.display_word(own_word, g_index, y_index))
-                            print('================================')
-                        else:
-                            while True:
-                                print('Invalid word. Please try again.')
-                                own_word = input('Enter your word : ')
-                                if all(SOLVER.check_five() and SOLVER.check_real()):
-                                    print(f'You selected "{own_word}"')
-                                    g_index = SOLVER.eliminate_g(word_lst, own_word)
-                                    y_index = SOLVER.eliminate_y(word_lst, own_word)
-                                    SOLVER.display_word(own_word, g_index, y_index)
-                                    lst.append(SOLVER.display_word(own_word, g_index, y_index))
-                                    print('================================')
-                                    break
+                        g_index = SOLVER.eliminate_g(word_lst, own_word)
+                        y_index = SOLVER.eliminate_y(word_lst, own_word)
+                        SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                        # SOLVER.display_word(own_word, g_index, y_index)
+                        lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                        # print(lst)
+                        # SOLVER.update_word_lst(word_lst)
+                        # dump_g.append(g_index)
+                        # dump_y.append(y_index)
+
+                        print('================================')
 
                     rounds += 1
 
@@ -141,10 +142,16 @@ def run(filename):
                 rand = []
                 if len(sug) > 4:
                     for i in range(4):
-                        rand.append(random.choice(sug))
+                        random_word = random.choice(sug)
+                        while random_word in lst:
+                            random_word = random.choice(sug)
+                        rand.append(random_word)
                 else:
                     for i in range(len(sug)):
-                        rand.append(random.choice(sug))
+                        random_word = random.choice(sug)
+                        while random_word in lst:
+                            random_word = random.choice(sug)
+                        rand.append(random_word)
 
                 for i in range(len(rand)):
                     print(f'{rand[i]} [{i + 1}]')
@@ -162,22 +169,34 @@ def run(filename):
                     while select not in ['1', '2', '3', '4', '5']:
                         print('Invalid input. Please try again.')
                         select = input('What you selected : ')
-                    if select != len(rand) + 1:
+                    if int(select) != len(rand)+1:
                         print(f'You selected "{rand[int(select) - 1]}"')
                         print('================================')
                         g_index = SOLVER.eliminate_g(word_lst, rand[int(select) - 1])
                         y_index = SOLVER.eliminate_y(word_lst, rand[int(select) - 1])
-                        SOLVER.display_word(rand[int(select) - 1], g_index, y_index)
+                        SOLVER.eliminate_b(word_lst, rand[int(select) - 1], g_index, y_index)
+                        # SOLVER.display_word(rand[int(select) - 1], g_index, y_index)
                         lst.append(SOLVER.display_word(rand[int(select) - 1], g_index, y_index))
+                        # print(lst)
+                        # SOLVER.update_word_lst(word_lst)
+                        # dump_g.append(g_index)
+                        # dump_y.append(y_index)
+
                         print('================================')
                     else:
                         own_word = input('Enter your word : ')
-                        if all(SOLVER.check_five() and SOLVER.check_real()):
+                        if type(own_word) == str:
                             print(f'You selected "{own_word}"')
                             g_index = SOLVER.eliminate_g(word_lst, own_word)
                             y_index = SOLVER.eliminate_y(word_lst, own_word)
-                            SOLVER.display_word(own_word, g_index, y_index)
+                            SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                            # SOLVER.display_word(own_word, g_index, y_index)
                             lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                            # print(lst)
+                            # SOLVER.update_word_lst(word_lst)
+                            # dump_g.append(g_index)
+                            # dump_y.append(y_index)
+
                             print('================================')
                         else:
                             while True:
@@ -187,9 +206,16 @@ def run(filename):
                                     print(f'You selected "{own_word}"')
                                     g_index = SOLVER.eliminate_g(word_lst, own_word)
                                     y_index = SOLVER.eliminate_y(word_lst, own_word)
-                                    SOLVER.display_word(own_word, g_index, y_index)
+                                    SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                                    # SOLVER.display_word(own_word, g_index, y_index)
                                     lst.append(SOLVER.display_word(own_word, g_index, y_index))
+                                    # print(lst)
+                                    # SOLVER.update_word_lst(word_lst)
+                                    # dump_g.append(g_index)
+                                    # dump_y.append(y_index)
+
                                     print('================================')
+                                    # print(word_lst)
                                     break
                 else:
                     print('Please enter y or n')
