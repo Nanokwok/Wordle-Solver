@@ -1,5 +1,4 @@
 from database import Database
-# from word import Word
 from solver import Solver
 import random
 
@@ -202,7 +201,7 @@ def run(filename):  # main function
                 print(f'"{word}" is already in the file')  # if the word is already in the file
                 word = input('Enter a word : ')
             elif len(word) == 5:
-                DB.add_word(word)
+                DB.add_word(word, filename)  # add the word to the file
                 break
             else:
                 print('word must be 5 letter')

@@ -14,9 +14,9 @@ class Database:  # Database Class description
         self.word_lst = lst
         return self.word_lst
 
-    def add_word(self, file_name):  # add word to file
+    def add_word(self, word, file_name):  # add word to file
         with open(file_name, 'a') as f:
-            f.write(self.word + '')
+            f.write(word)
 
     def __repr__(self):  # return string representation of object
-        return self.word
+        return self.word_lst
