@@ -4,6 +4,13 @@ from solver import Solver
 import random
 
 
+
+# list_obj = []
+# with open('sgb-words.txt') as f:
+#     word = f.read().splitlines()
+#     list_obj.append(Word(word))
+
+
 def run(filename):
     print('Hello ! welcome to WORDLE SOLVER')
     print('================================')
@@ -73,8 +80,11 @@ def run(filename):
         DB = Database(filename)
         SOLVER = Solver(DB.read_file(filename))
         word_lst = DB.read_file(filename)
+        word_lst = [i.word for i in word_lst]
         ans = ['dealt', 'roate', 'store', 'ocean']
         lst = []
+        # word_lst = SOLVER.word_lst
+
         # dump_g = []
         # dump_y = []
         while True:
@@ -88,7 +98,15 @@ def run(filename):
                 yes_or_no = input('Have you won? (y/n) : ')
                 if yes_or_no == 'y':
                     print('Congratulations!')
-                    break
+                    print('================================')
+                    print('Do you want to play again?')
+                    print('Yes [1]')
+                    print('No [2]')
+                    play_again = input('What you selected : ')
+                    if play_again == '1':
+                        continue
+                    elif play_again == '2':
+                        break
                 elif yes_or_no == 'n':
                     select = input('What you selected : ')
                     while select not in ['1', '2', '3', '4', '5']:
@@ -115,7 +133,7 @@ def run(filename):
                         own_word = input('Enter your word : ')
                         g_index = SOLVER.eliminate_g(word_lst, own_word)
                         y_index = SOLVER.eliminate_y(word_lst, own_word)
-                        SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                        SOLVER.eliminate_b(word_lst, own_word, g_index, y_index)
                         # SOLVER.display_word(own_word, g_index, y_index)
                         lst.append(SOLVER.display_word(own_word, g_index, y_index))
                         # print(lst)
@@ -163,13 +181,21 @@ def run(filename):
                 yes_or_no = input('Have you won? (y/n) : ')
                 if yes_or_no == 'y':
                     print('Congratulations!')
-                    break
+                    print('================================')
+                    print('Do you want to play again?')
+                    print('Yes [1]')
+                    print('No [2]')
+                    play_again = input('What you selected : ')
+                    if play_again == '1':
+                        continue
+                    elif play_again == '2':
+                        break
                 elif yes_or_no == 'n':
                     select = input('What you selected : ')
                     while select not in ['1', '2', '3', '4', '5']:
                         print('Invalid input. Please try again.')
                         select = input('What you selected : ')
-                    if int(select) != len(rand)+1:
+                    if int(select) != len(rand) + 1:
                         print(f'You selected "{rand[int(select) - 1]}"')
                         print('================================')
                         g_index = SOLVER.eliminate_g(word_lst, rand[int(select) - 1])
@@ -234,15 +260,22 @@ def run(filename):
             #         lst.append(line.strip())
             DB = Database(filename)
             lst = DB.read_file(filename)
+            SOLVER = Solver(lst)
+            SOLVER.update()
+            # word_class_list = []
+
+            # for i in SOLVER._word_lst:
+            #     word_class_list.append(Word(i))
+            lst_ = SOLVER.word_list
             # lst = Database.read_file('sgb-words.txt')
 
-            for i in range(1, len(lst)):
+            for i in range(1, len(lst_)):
                 if i % 15 == 0:
-                    print(lst[i])
+                    print(lst_[i - 1].word)
                 else:
-                    print(lst[i], end=', ')
+                    print(lst_[i - 1].word, end=', ')
             print()
-            print(f'There are "{len(lst)}" words in the file')
+            print(f'There are "{len(lst_)}" words in the file')
 
         elif inp == '2':
             letter = input('Enter a letter : ')

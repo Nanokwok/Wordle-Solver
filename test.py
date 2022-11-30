@@ -2,12 +2,10 @@
 # #
 # # y = [i for i in x]
 # # print(y)
-# import copy
 #
-with open('sgb-words.txt', 'r') as f:
-    lst = []
-    for line in f:
-        lst.append(line.strip())
+with open('sgb-words.txt') as f:
+    word = f.read().splitlines()
+    print(word)
 #
 # ans = 'water'
 #
@@ -98,14 +96,14 @@ with open('sgb-words.txt', 'r') as f:
 # for i in lst:
 #     if i != 'x':
 #         print(i)
-
-from word import Word
-
-lst_of_object = []
-for i in lst:
-    lst_of_object.append(Word(i))
-
-print(lst_of_object)
-
-for i in lst_of_object:
-    print(i)
+#
+# from word import Word
+#
+# lst_of_object = []
+# for i in lst:
+#     lst_of_object.append(Word(i))
+#
+# print(lst_of_object)
+#
+# for i in lst_of_object:
+#     print(i)

@@ -18,15 +18,24 @@
 # from database import Database
 from word import Word
 
+# solver_lst = []
 
 class Solver:
     def __init__(self, word):
-        self.word_lst = []
+        self._word_lst = []
         self.question = ''
         self.answer = ''
         self.question_lst = []
         self.answer_lst = []
         self.word = word
+
+    @property
+    def word_list(self):
+        return self._word_lst
+
+    @word_list.setter
+    def word_list(self, lst):
+        self._word_lst = lst
 
     # def split(self, word):
     #     for i in word:
@@ -53,9 +62,16 @@ class Solver:
         for i in self.answer:
             self.answer_lst.append(i)
 
-    def word(self):
-        for i in self.word_lst:
-            self.word_lst.append(Word(i))
+    # def word(self):
+    #     for i in self.word_lst:
+    #         self.word_lst.append(Word(i))
+    def update(self):
+        for word in self.word:
+            self._word_lst.append(word)
+
+    def add_word(self, word):
+        self._word_lst.append(word)
+
 
     def eliminate_g(self, lst, ans):
         num = ['1', '2', '3', '4', '5', '-']
@@ -97,7 +113,7 @@ class Solver:
                         #         counts += 1
                         # if counts == 1:
                         lst[i] = 'x'
-                    elif lst[i][index[j] - 1:index[j]] != letter_correct_g[j]:
+                    elif lst[i][int(index[j]) - 1:int(index[j])] != letter_correct_g[j]:
                         lst[i] = 'x'
         return index
 

@@ -5,10 +5,7 @@
 # methods
 # getter&setter
 
-from database import Database
-
-
-# from solver import Solver
+# from database import Database
 
 
 class Word:
@@ -23,13 +20,17 @@ class Word:
     def word(self, word):
         self.__word = word
 
-    def check(self):
-        if self.word in Database.read_file('sgb-words.txt') and len(self.word) == 5:
-            return True
-        else:
-            return False
+    # def check(self):
+    #     if self.word in Database.read_file('sgb-words.txt') and len(self.word) == 5:
+    #         return True
+    #     else:
+    #         return False
 
-    # def __repr__(self):
-    #     return self.word
+    def __repr__(self):
+        return self.word
+# word_class_list = []
+# solver = Solver()
+# for i in slover.word_lst:
+#     word_class_list.append(Word(i))
 
 # print(Database.read_file('sgb-words.txt'))
