@@ -33,14 +33,7 @@ def run(filename):  # main function
                 if yes_or_no == 'y':  # if user win
                     print('Congratulations!')
                     print('================================')
-                    print('Do you want to play again?')
-                    print('Yes [1]')
-                    print('No [2]')
-                    play_again = input('What you selected : ')
-                    if play_again == '1':  # if user want to play again
-                        continue
-                    elif play_again == '2':  # if user don't want to play again
-                        break
+                    break
                 elif yes_or_no == 'n':  # if user don't win
                     select = input('What you selected : ')
                     while select not in ['1', '2', '3', '4', '5']:
@@ -79,7 +72,7 @@ def run(filename):  # main function
                         sug.append(i)
 
                 rand = []
-                if len(sug) > 4: # if there are more than 4 word in the list
+                if len(sug) > 4:  # if there are more than 4 word in the list
                     for i in range(4):
                         random_word = random.choice(sug)  # random a word
                         while random_word in lst:  # if the word is already in the list
@@ -97,20 +90,13 @@ def run(filename):  # main function
 
                 print(f'((Your own guess)) [{len(rand) + 1}]')
 
-                ans = rand  # store suggested word in a list
+                ans = rand  # store suggested word in ans list
 
                 yes_or_no = input('Have you won? (y/n) : ')
                 if yes_or_no == 'y':
                     print('Congratulations!')
                     print('================================')
-                    print('Do you want to play again?')
-                    print('Yes [1]')
-                    print('No [2]')
-                    play_again = input('What you selected : ')
-                    if play_again == '1':
-                        continue
-                    elif play_again == '2':
-                        break
+                    break
                 elif yes_or_no == 'n':
                     select = input('What you selected : ')
                     while select not in ['1', '2', '3', '4', '5']:  # if user enter invalid input
@@ -139,7 +125,7 @@ def run(filename):  # main function
                             while True:
                                 print('Invalid word. Please try again.')
                                 own_word = input('Enter your word : ')
-                                if all(SOLVER.check_five() and SOLVER.check_real()):
+                                if type(own_word) == str:
                                     print(f'You selected "{own_word}"')
                                     g_index = SOLVER.eliminate_g(word_lst, own_word)
                                     y_index = SOLVER.eliminate_y(word_lst, own_word)
