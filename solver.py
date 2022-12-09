@@ -44,6 +44,10 @@ class Solver:
             index = [i for i in green]  # split input
             bool = all(i in num for i in index)  # check if input is valid
 
+            green = input('Input green tile index(es) (if not input -) : ')
+            index = [i for i in green]  # split input
+            bool = all(i in num for i in index)  # check if input is valid
+
         if green != '-':  # if input is not '-'
             for i in range(len(index)):  # convert to int
                 index[i] = int(index[i])
@@ -73,6 +77,11 @@ class Solver:
 
         while not bool:  # check if input is valid
             print('Invalid input')
+            yellow = input('Input yellow tile index(es) (if not input -) : ')
+            index = [i for i in yellow]
+            bool = all(i in num for i in index)
+
+
             yellow = input('Input yellow tile index(es) (if not input -) : ')
             index = [i for i in yellow]
             bool = all(i in num for i in index)
@@ -117,7 +126,15 @@ class Solver:
         for i in range(len(lst)):
             for j in char:
                 if j in lst[i]:
-                    lst[i] = 'x'
+                    cha = []
+                    for k in lst[i]:
+                        for a in char:
+                            if k == a:
+                                cha.append(k)
+                    if len(cha) <1:
+                        pass
+                    else:
+                        lst[i] = 'x'
 
     def display_word(self, ans, g_index, y_index):  # display word
         for i in range(1, 6):

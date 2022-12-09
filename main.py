@@ -117,7 +117,7 @@ def run(filename):  # main function
                             print(f'You selected "{own_word}"')
                             g_index = SOLVER.eliminate_g(word_lst, own_word)
                             y_index = SOLVER.eliminate_y(word_lst, own_word)
-                            SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                            SOLVER.eliminate_b(word_lst, own_word, g_index, y_index)
                             lst.append(SOLVER.display_word(own_word, g_index, y_index))
 
                             print('================================')
@@ -129,7 +129,7 @@ def run(filename):  # main function
                                     print(f'You selected "{own_word}"')
                                     g_index = SOLVER.eliminate_g(word_lst, own_word)
                                     y_index = SOLVER.eliminate_y(word_lst, own_word)
-                                    SOLVER.eliminate_b(word_lst, ans[int(select) - 1], g_index, y_index)
+                                    SOLVER.eliminate_b(word_lst, own_word, g_index, y_index)
                                     lst.append(SOLVER.display_word(own_word, g_index, y_index))
 
                                     print('================================')
@@ -194,4 +194,6 @@ def run(filename):  # main function
                 word = input('Enter a word : ')
 
 
-run('sgb-words.txt')  # run the program
+run('sgb-words.txt')
+
+
