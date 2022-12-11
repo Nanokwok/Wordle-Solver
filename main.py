@@ -8,7 +8,7 @@ def run(filename):  # main function
     print('Hello ! welcome to WORDLE SOLVER')
     print('================================')
     print('menu:')
-    print('open slover [1]')
+    print('open solver [1]')
     print('display all word in a file [2]')
     print('add new word to a file [3]')
     menu_choice = input('What you selected : ')  # menu choice
@@ -50,7 +50,11 @@ def run(filename):  # main function
                         print('================================')
 
                     else:
-                        own_word = input('Enter your word : ')
+                        # own_word = input('Enter your word : ')
+                        own_word = SOLVER.ask_and_lower()
+                        while SOLVER.check_five(own_word) is False:
+                            print('Invalid input. Please try again.')
+                            own_word = SOLVER.ask_and_lower()
                         g_index = SOLVER.eliminate_g(word_lst, own_word)
                         y_index = SOLVER.eliminate_y(word_lst, own_word)
                         SOLVER.eliminate_b(word_lst, own_word, g_index, y_index)
@@ -85,6 +89,12 @@ def run(filename):  # main function
                             random_word = random.choice(sug)
                         rand.append(random_word)
 
+                if len(sug) == 0:
+                    print('sorry, no more word to guess')
+                    print('please try again')
+                    print('================================')
+                    break
+
                 for i in range(len(rand)):
                     print(f'{rand[i]} [{i + 1}]')  # display suggested word
 
@@ -112,7 +122,10 @@ def run(filename):  # main function
 
                         print('================================')
                     else:
-                        own_word = input('Enter your word : ')
+                        own_word = SOLVER.ask_and_lower()
+                        while SOLVER.check_five(own_word) is False:
+                            print('Invalid input. Please try again.')
+                            own_word = SOLVER.ask_and_lower()
                         if type(own_word) == str:
                             print(f'You selected "{own_word}"')
                             g_index = SOLVER.eliminate_g(word_lst, own_word)
@@ -124,7 +137,9 @@ def run(filename):  # main function
                         else:
                             while True:
                                 print('Invalid word. Please try again.')
-                                own_word = input('Enter your word : ')
+                                own_word = SOLVER.ask_and_lower()
+                                while SOLVER.check_five(own_word) is False:
+                                    own_word = SOLVER.ask_and_lower()
                                 if type(own_word) == str:
                                     print(f'You selected "{own_word}"')
                                     g_index = SOLVER.eliminate_g(word_lst, own_word)
@@ -147,7 +162,7 @@ def run(filename):  # main function
             DB = Database(filename)  # create a database object
             lst = DB.read_file(filename)  # read file
             SOLVER = Solver(lst)  # create a solver object
-            SOLVER.update()  # update the word list
+            # SOLVER.update()  # update the word list
             lst_ = SOLVER.word_list  # store the word list
 
             for i in range(1, len(lst_)):  # loop through the word list
@@ -195,5 +210,6 @@ def run(filename):  # main function
 
 
 run('sgb-words.txt')
+
 
 

@@ -1,9 +1,9 @@
 class Solver:
     def __init__(self, word):
         self._word_lst = []
-        self.question = ''
+        # self.question = ''
         self.answer = ''
-        self.question_lst = []
+        # self.question_lst = []
         self.answer_lst = []
         self.word = word
 
@@ -16,17 +16,24 @@ class Solver:
         self._word_lst = lst
 
     def ask_and_lower(self):  # ask for question and convert to lower case
-        self.answer = input("Enter a word: ").lower()  # input answer
-        for i in self.answer:  # split answer
-            self.answer_lst.append(i)
+        # self.answer = input("Enter a word: ").lower()  # input answer
+        word = input("Enter a word: ").lower()  # input answer
+        return word
+        # for i in self.answer:  # split answer
+        #     self.answer_lst.append(i)
 
-    def split_input(self):  # split input
-        for i in self.answer:
-            self.answer_lst.append(i)
+    # def split_input(self):  # split input
+    #     for i in self.answer:
+    #         self.answer_lst.append(i)
 
-    def update(self):  # update word list
-        for word in self.word:
-            self._word_lst.append(word)
+    # def update(self):  # update word list
+    #     for word in self.word:
+    #         self._word_lst.append(word)
+    def check_five(self, word):
+        if len(word) == 5:
+            return True
+        else:
+            return False
 
     def add_word(self, word):  # add word to word list
         self._word_lst.append(word)
@@ -146,10 +153,10 @@ class Solver:
                 print(ans[i - 1:i], end=' ')  # print letter in lower case
         print()  # print new line
 
-    def update_word_lst(self, lst):  # update word list
-        word = []
-        for i in lst:
-            if i != 'x':
-                word.append(i)
-        lst = word
-        return lst
+    # def update_word_lst(self, lst):  # update word list
+    #     word = []
+    #     for i in lst:
+    #         if i != 'x':
+    #             word.append(i)
+    #     lst = word
+    #     return lst
