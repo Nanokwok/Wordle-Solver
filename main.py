@@ -12,6 +12,9 @@ def run(filename):  # main function
     print('display all word in a file [2]')
     print('add new word to a file [3]')
     menu_choice = input('What you selected : ')  # menu choice
+    while menu_choice not in ['1', '2', '3']:  # check if input is valid
+        print('Invalid input')
+        menu_choice = input('What you selected : ')  # menu choice
     print('================================')
     if menu_choice == '1':  # open slover
         rounds = 1
@@ -157,12 +160,15 @@ def run(filename):  # main function
         print('display all word in a file [1]')
         print('display just letter word in a file [2]')
         inp = input('What you selected : ')
+        while inp not in ['1', '2']:
+            print('Invalid input. Please try again.')
+            inp = input('What you selected : ')
         print('================================')
         if inp == '1':
             DB = Database(filename)  # create a database object
             lst = DB.read_file(filename)  # read file
             SOLVER = Solver(lst)  # create a solver object
-            # SOLVER.update()  # update the word list
+            SOLVER.update()  # update the word list
             lst_ = SOLVER.word_list  # store the word list
 
             for i in range(1, len(lst_)):  # loop through the word list
@@ -174,7 +180,7 @@ def run(filename):  # main function
             print(f'There are "{len(lst_)}" words in the file')  # display the number of word in the file
 
         elif inp == '2':
-            letter = input('Enter a letter : ')
+            letter = input('Enter a letter : ').lower() # ask user to enter a letter
             with open(filename, 'r') as f:  # open the file
                 lst = []  # list for store word
                 for line in f:  # loop through the file
